@@ -1,5 +1,5 @@
 import { TextInput, SafeAreaView, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { loginUser } from '../services/authService';
 import React from 'react';
 import { Button } from 'react-native';
@@ -7,16 +7,23 @@ import { Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../services/types'; 
+import { AuthContext } from '../contexts/AuthContext';
 
 const LoginScreen = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
 
   //   TODO: Login Function
-  const login = () => {
-    loginUser(email, password);
-  }
+  const login = async () => {
+    try {
+      await loginUser(email, password);
+      setIsLoggedIn(true);
+    } catch (e) {;
+      console.error('Login failed:', e);
+    }
+  };
 
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 

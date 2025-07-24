@@ -1,8 +1,9 @@
 // TODO: Create Register Screen & Register Functionality
 import { TextInput, SafeAreaView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { registerUser } from '../services/authService';
 import { Button } from 'react-native';
+import { AuthContext } from '../contexts/AuthContext';
 
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -11,11 +12,16 @@ import { RootStackParamList } from '../services/types';
 const RegistrationScreen = () => {
     const [email,setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
 
     // TODO: Register function
     const register = () => {
-        // console.log("Registering user")
-        registerUser(email, password);
+        try {
+            registerUser(email, password);
+            setIsLoggedIn(true); // update the context state for logged in (registration logs in too)
+        } catch (e) {
+            console.error('Login failed:', e);
+        }
     }
 
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
