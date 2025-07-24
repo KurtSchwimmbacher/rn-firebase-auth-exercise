@@ -1,5 +1,5 @@
 // App.tsx
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from './screens/LoginScreen';
@@ -7,8 +7,8 @@ import ProfileScreen from './screens/ProfileScreen';
 import RegistrationScreen from './screens/RegistrationScreen';
 import { AuthProvider } from './contexts/AuthProvider';
 import { AuthContext } from './contexts/AuthContext';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase';
+import { Text } from 'react-native';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -21,14 +21,11 @@ export default function App() {
 }
 
 function Main() {
-  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, loading } = useContext(AuthContext);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setIsLoggedIn(!!user);
-    });
-    return unsubscribe;
-  }, []);
+  if(loading) {
+    return null; // replace with loading spinner
+  }
 
   return (
     <NavigationContainer>
