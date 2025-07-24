@@ -29,7 +29,7 @@ export default function App() {
     setIsLoggedIn(false);
     console.log("user is not logged in");
   }
-});
+})
 
 // TODO: Research how to convert this code to use a useContext hook for better practice
 

@@ -2,8 +2,13 @@ import { TextInput, SafeAreaView, StyleSheet, Text, View, TouchableOpacity } fro
 import { useState } from 'react'
 import { loginUser } from '../services/authService';
 import React from 'react';
+import { Button } from 'react-native';
 
-const LoginScreen = ({navigation}) => {
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../services/types'; 
+
+const LoginScreen = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -12,6 +17,8 @@ const LoginScreen = ({navigation}) => {
   const login = () => {
     loginUser(email, password);
   }
+
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
@@ -37,13 +44,16 @@ const LoginScreen = ({navigation}) => {
             <Text style={styles.buttonText}>Login Button</Text>
         </TouchableOpacity>
 
-        {/* Register Navigation */}
-        <TouchableOpacity
-          style={[styles.button, { backgroundColor: '#888', marginTop: 10 }]}
-          onPress={() => navigation.navigate('Login')}
-        >
-          <Text style={styles.buttonText}>Register</Text>
-        </TouchableOpacity>
+        <View>
+          <Text>
+             Don't have an account?
+          </Text>
+           {/* Register Navigation */}
+          <Button
+            onPress={() => navigation.navigate('Register')}
+            title="Register"
+          />
+        </View>
         
 
       </View>  

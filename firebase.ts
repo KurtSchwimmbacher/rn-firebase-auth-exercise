@@ -29,10 +29,10 @@ export const auth = getAuth(app); // links to the auth services to our app -> ne
 // HOMEWORK
 // ✅ 1. Create registration screen ui 
 // ✅ 2. create registration function in authService.tsx
-// 3. add the functionality to your registration screen
+// ✅ 3. add the functionality to your registration screen
 // 4. add efficient navigation between login and registration screens
 
-// Kurt imposed extra BONUSES
+// BONUSES
 // 1. switch to useContext for auth state management
 // 2. add user data to firestore db 
 // 3. fix the localstorage issue to persist user login state

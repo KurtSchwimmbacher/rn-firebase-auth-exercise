@@ -2,6 +2,11 @@
 import { TextInput, SafeAreaView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { registerUser } from '../services/authService';
+import { Button } from 'react-native';
+
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../services/types'; 
 
 const RegistrationScreen = () => {
     const [email,setEmail] = useState('');
@@ -9,8 +14,11 @@ const RegistrationScreen = () => {
 
     // TODO: Register function
     const register = () => {
-
+        // console.log("Registering user")
+        registerUser(email, password);
     }
+
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
@@ -37,7 +45,12 @@ const RegistrationScreen = () => {
                 </TouchableOpacity>
 
                 {/* todo : Nav to login */}
-
+                <View>
+                    <Text>
+                       Already have an account?
+                    </Text>
+                    <Button onPress={() => navigation.navigate('Login')} title='Login' />
+                </View>
                 
             </View>
         </SafeAreaView>

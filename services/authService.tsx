@@ -38,6 +38,7 @@ export const registerUser = (email: string, password: string) => {
   .then((userCredential) => {
     // Signed up 
     const user = userCredential.user;
+    console.log("User registered successfully");
     // ...
   })
   .catch((error) => {
